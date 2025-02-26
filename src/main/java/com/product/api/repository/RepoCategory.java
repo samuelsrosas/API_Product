@@ -25,6 +25,6 @@ public interface RepoCategory  extends JpaRepository<Category, Integer>{
 	 * value 	   - especifica la sentencia del query
 	 * nativeQuery - configura si la consulta es nativa
 	 */
-	@Query(value = "SELECT * FROM category Where ORDER BY category", nativeQuery = true)
+	@Query(value = "SELECT * FROM category ORDER BY category", nativeQuery = true)
 	List<Category> getCategories();
 }
