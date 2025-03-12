@@ -67,7 +67,7 @@ public class CtrlCategory{
 		return svc.enableCategory(id);
 	}
 	
-	@PatchMapping("/{id}/enable")
+	@PatchMapping("/{id}/disable")
 	public ResponseEntity<ApiResponse> disableRegion(@PathVariable Integer id) {
 		return svc.disableCategory(id);
 	}

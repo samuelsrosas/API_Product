@@ -43,7 +43,6 @@ public class SvcCategoryImp implements SvcCategory{
 		} catch (DataAccessException e) {
 			throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "Error");
 		}
-		//return null;
 	}
 
 	@Override
@@ -97,6 +96,10 @@ public class SvcCategoryImp implements SvcCategory{
 		}
 	}
 	
+	/**
+	 * Verifica si la categoria esta registrada
+	 * @param id el identificador de la categoria a verificar
+	 */
 	private void validateCategoryId(Integer id) {
 		try {
 			if (repo.getCategory(id) == null)

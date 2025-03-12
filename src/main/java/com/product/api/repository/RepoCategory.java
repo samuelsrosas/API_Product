@@ -32,22 +32,37 @@ public interface RepoCategory  extends JpaRepository<Category, Integer>{
 	@Query(value = "SELECT * FROM category ORDER BY category", nativeQuery = true)
 	List<Category> getCategories();
 	
+	/*
+	 * Declaramos la firma del metodo getActiveCategories que consulte las categorias activas registradas
+	 */
 	@Query(value = "SELECT * FROM category WHERE status = 1 ORDER BY category", nativeQuery = true)
 	List<Category> getActiveCategories();
 	
+	/*
+	 * Declaramos la firma del metodo getCategory que consulte la categoria con el id dado
+	 */
 	@Query(value = "SELECT * FROM category WHERE category_id = :category_id", nativeQuery = true)
 	Category getCategory(@Param("category_id") Integer category_id);
 	
+	/*
+	 * Declaramos la firma del metodo createCategory que inserte la categoria con los parametos category y tag
+	 */
 	@Modifying
 	@Transactional
-	@Query(value = "INSERT INTO category (category, tag, status) VALUES (:categroy, :tag, 1)", nativeQuery = true)
+	@Query(value = "INSERT INTO category (category, tag, status) VALUES (:category, :tag, 1)", nativeQuery = true)
 	void createCategory(@Param("category") String category, @Param("tag") String tag);
 	
+	/*
+	 * Declaramos la firma del metodo updateCategory que modifique los parametos category y tag de la categoria
+	 */
 	@Modifying
 	@Transactional
 	@Query(value = "UPDATE category SET category = :category, tag = :tag WHERE category_id = :category_id ", nativeQuery = true)
 	void updateCategory(@Param("category_id") Integer category_id ,@Param("category") String category, @Param("tag") String tag);
 	
+	/*
+	 * Declaramos la firma del metodo updateCategory que modifique el status de la categoria
+	 */
 	@Modifying
 	@Transactional
 	@Query(value = "UPDATE category SET status = :status WHERE category_id = :category_id ", nativeQuery = true)
