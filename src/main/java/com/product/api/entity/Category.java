@@ -1,7 +1,14 @@
-package com.product;
+package com.product.api.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="category")
 public class Category {
     /** Identificador de la categoría */
+	@Id
     private Integer category_id;
 
     /** Nombre de la categoría */
@@ -38,6 +45,13 @@ public class Category {
         this.category = category;
         this.tag = tag;
         this.status = 1;
+    }
+    
+    /**
+     * Constructor de Category
+     */
+    public Category() {
+    	
     }
 
     /**
