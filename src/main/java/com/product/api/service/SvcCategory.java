@@ -2,6 +2,8 @@ package com.product.api.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.product.api.entity.Category;
 
 /**
@@ -14,5 +16,5 @@ public interface SvcCategory {
 	 * Muestra la lista de categorias registradas.
 	 * @return lista de categorias registradas.
 	 */
-	public List<Category> getCategories();
+	public ResponseEntity<List<Category>> getCategories();
 }
