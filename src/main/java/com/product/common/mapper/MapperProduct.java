@@ -28,10 +28,12 @@ public class MapperProduct {
 
 	public Product fromDto(DtoProductIn dto) {
 		Product product = new Product();
-		product.setProduct_id(dto.getCategory_id());
 		product.setGtin(dto.getGtin());
 		product.setProduct(dto.getProduct());
+		product.setDescription(dto.getDescription());
 		product.setPrice(dto.getPrice());
+		product.setStock(dto.getStock());
+		product.setCategory_id(dto.getCategory_id());
 		product.setStatus(1);
 	
         return product;
