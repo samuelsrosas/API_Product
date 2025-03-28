@@ -66,18 +66,34 @@ public class SvcProductImageImp implements SvcProductImage {
 			// Guardar la ruta de la imagen
 			repo.save(productImage);
 			
-			return new ResponseEntity<>(new ApiResponse("La imagen del product ha sido registrada"), HttpStatus.OK);
+			return new ResponseEntity<>(new ApiResponse("La imagen del product ha sido registrada"), HttpStatus.CREATED);
 		}catch (DataAccessException e) {
 		    throw new DBAccessException(e);
 		}catch (IOException e) {
 			throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al guardar el archivo");
 		}
 	}
+	
+	private void validateProductImageId(Integer id) {
+		try {
+			if(repo.findById(id).isEmpty()) {
+				throw new ApiException(HttpStatus.NOT_FOUND, "El id de la imagen no existe");
+			}
+		}catch (DataAccessException e) {
+			throw new DBAccessException(e);
+		}
+	}
 
 	@Override
 	public ResponseEntity<ApiResponse> deleteProductImage(Integer id) {
-		repo.deleteById(id);
-		return new ResponseEntity<>(new ApiResponse("La imagen del producto ha sido eliminada"), HttpStatus.OK);
+		try {
+			validateProductImageId(id);
+			repo.deleteById(id);
+			return new ResponseEntity<>(new ApiResponse("La imagen del producto ha sido eliminada"), HttpStatus.OK);
+		}catch (DataAccessException e) {
+			throw new DBAccessException(e);
+		}
+		
 	}
 
 }
