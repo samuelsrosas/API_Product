@@ -21,10 +21,13 @@ import com.product.api.service.SvcCategory;
 import com.product.common.dto.ApiResponse;
 import com.product.exception.ApiException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/category")
+@Tag(name = "Category", description = "Catálogo de categorias")
 public class CtrlCategory{
 	
 	// Uso de la inyeccion de dependencias
@@ -36,16 +39,19 @@ public class CtrlCategory{
 	 * @return lo que devuelve el metodo getCategories del servicio
 	 */
 	@GetMapping
+	@Operation(summary = "Consultar categorias", description = "Retorna todas las categorias registradas en el sistema")
 	public ResponseEntity<List<Category>> getCategories(){
 		return svc.getCategories();
 	}
 	
 	@GetMapping("/active")
+	@Operation(summary = "Consultar categorias activas", description = "Retorna todas las categorias activas registradas en el sistema")
 	public ResponseEntity<List<Category>> getActiveCategories(){
 		return svc.getActiveCategories();
 	}
 	
 	@PostMapping
+	@Operation(summary = "Crear categorias", description = "Crea una nueva categoria en el sistema")
 	public ResponseEntity<ApiResponse> createCategory(@Valid @RequestBody DtoCategoryIn in, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
 			throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
@@ -54,6 +60,7 @@ public class CtrlCategory{
 	}
 	
 	@PutMapping("/{id}")
+	@Operation(summary = "Actualizar categorias", description = "Actualiza la informacion de una categoria")
 	public ResponseEntity<ApiResponse> updateCategory(@PathVariable Integer id, @Valid @RequestBody DtoCategoryIn in,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
@@ -63,11 +70,13 @@ public class CtrlCategory{
 	}
 	
 	@PatchMapping("/{id}/enable")
+	@Operation(summary = "Activar categorias", description = "Cambia el status de una categoria a activo")
 	public ResponseEntity<ApiResponse> enableCategory(@PathVariable Integer id) {
 		return svc.enableCategory(id);
 	}
 	
 	@PatchMapping("/{id}/disable")
+	@Operation(summary = "Desactivar categorias", description = "Cambia el status de una categoria a inactivo")
 	public ResponseEntity<ApiResponse> disableRegion(@PathVariable Integer id) {
 		return svc.disableCategory(id);
 	}

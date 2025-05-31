@@ -16,16 +16,20 @@ import com.product.api.service.SvcProductImage;
 import com.product.common.dto.ApiResponse;
 import com.product.exception.ApiException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/product-image")
+@Tag(name = "Product image", description = "Carga de imagenes de los productos")
 public class CtrlProductImage {
 	
 	@Autowired
 	SvcProductImage svc;
 
 	@PostMapping
+	@Operation(summary = "Guardar imagen", description = "Asocia una imagen a un producto determinado")
     public ResponseEntity<ApiResponse> createProductImage(@Valid @RequestBody DtoProductImageIn in, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
         	throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
@@ -34,6 +38,7 @@ public class CtrlProductImage {
     }
 	
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Borrar imagen", description = "Elimina la imagen asociada a un producto de acuerdo a un id")
 	public ResponseEntity<ApiResponse> deleteProductImage(@PathVariable Integer id) {
 		return svc.deleteProductImage(id);
 	}
